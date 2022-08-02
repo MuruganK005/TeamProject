@@ -7,6 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class PlaySpecification {
     public static Specification<Play> hasPlayName(String playName){
-        return ((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("playName"),playName));
+        return ((root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("playName"),"%"+playName+"%"));
     }
 }
