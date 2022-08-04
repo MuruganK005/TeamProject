@@ -1,18 +1,35 @@
 package com.TeamExampleProject.controller;
 
 import com.TeamExampleProject.dao.Play;
+import com.TeamExampleProject.dao.searchCriteria.Document;
 import com.TeamExampleProject.dto.GenericDTO;
 import com.TeamExampleProject.dto.PlayDto;
+import com.TeamExampleProject.repo.PlayRepo;
 import com.TeamExampleProject.service.PlayService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("/api/v1")
 public class PlayController {
+    @Autowired
+    private PlayRepo playRepo;
     @Autowired
    private PlayService playService;
     @PostMapping("createPlay")
@@ -43,9 +60,4 @@ public class PlayController {
     public ResponseEntity<String> deleteAllPlay(){
         return playService.deleteAllPlay();
     }
-//    @GetMapping("getByPlayName")
-//    public ResponseEntity<String> getPlayName(@RequestParam String playName)
-//    {
-//        return playService.getByPlayName(playName);
-//    }
 }

@@ -1,6 +1,7 @@
 package com.TeamExampleProject.repo;
 
 import com.TeamExampleProject.dao.Play;
+import com.TeamExampleProject.dao.searchCriteria.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
