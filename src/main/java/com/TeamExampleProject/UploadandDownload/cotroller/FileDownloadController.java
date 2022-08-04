@@ -1,7 +1,8 @@
-package com.TeamExampleProject.UploadandDownload;
+package com.TeamExampleProject.UploadandDownload.cotroller;
 
 import java.io.IOException;
 
+import com.TeamExampleProject.UploadandDownload.util.FileDownloadUtil;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

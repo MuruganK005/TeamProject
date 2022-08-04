@@ -1,4 +1,4 @@
-package com.TeamExampleProject.UploadandDownload;
+package com.TeamExampleProject.UploadandDownload.util;
 
 import java.io.IOException;
 import java.nio.file.Files;

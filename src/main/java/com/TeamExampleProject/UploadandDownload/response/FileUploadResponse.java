@@ -1,4 +1,4 @@
-package com.TeamExampleProject.UploadandDownload;
+package com.TeamExampleProject.UploadandDownload.response;
 
 import lombok.Getter;
 import lombok.Setter;
