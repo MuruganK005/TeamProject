@@ -34,8 +34,8 @@ public class PlayCustomController {
     public Page<Play> getFilterPlay(@PathVariable Play numberOfPages, @PathVariable Pageable maxSize){
         return customRepo.getFilterPlay(numberOfPages,maxSize);
     }
-    @GetMapping("/playName/{pageDao}/{playSearchCriteria}")
-    public Page<Play> getPlays(PageDao pageDao, PlaySearchCriteria playSearchCriteria){
-        return pageService.getPlays(pageDao,playSearchCriteria);
+    @GetMapping("/playName/pageDao")
+    public Page<Play> getPlays(@RequestBody PageDao pageDao){
+        return pageService.getPlays(pageDao);
     }
 }

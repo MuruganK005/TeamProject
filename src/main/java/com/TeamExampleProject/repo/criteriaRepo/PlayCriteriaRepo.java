@@ -28,12 +28,12 @@ public class PlayCriteriaRepo {
         this.criteriaBuilder= entityManager.getCriteriaBuilder();
     }
 
-    public Page<Play> findAllWithFilter(PageDao pageDao, PlaySearchCriteria playSearchCriteria){
+    public Page<Play> findAllWithFilter(PageDao pageDao){
         CriteriaQuery<Play> criteriaQuery= criteriaBuilder.createQuery(Play.class);
         Root<Play> playRoot= criteriaQuery.from(Play.class);
-        Predicate predicate=getPredicate(playSearchCriteria,playRoot);
+        Predicate predicate=getPredicate(pageDao.getSearchCriteria().getPlayName(),playRoot);
         criteriaQuery.where(predicate);
-        setOrder(pageDao,criteriaQuery,playRoot);
+//        setOrder(criteriaQuery,playRoot);
 
         TypedQuery<Play> typedQuery= entityManager.createQuery(criteriaQuery);
         typedQuery.setFirstResult(pageDao.getPageNumber()* pageDao.getPageSize());
@@ -44,26 +44,26 @@ public class PlayCriteriaRepo {
         return  new PageImpl<>(typedQuery.getResultList(),pageable,playCount);
     }
 
-    private Predicate getPredicate(PlaySearchCriteria playSearchCriteria, Root<Play> playRoot) {
+    private Predicate getPredicate(String playSearchCriteria, Root<Play> playRoot) {
         List<Predicate> predicates=new ArrayList<>();
-        if (Objects.nonNull(playSearchCriteria.getPlayName())){
+        if (Objects.nonNull(playSearchCriteria)){
             predicates.add(
-                    criteriaBuilder.like(playRoot.get("playName"),"%"+playSearchCriteria.getPlayName()+"%"));
+                    criteriaBuilder.like(playRoot.get("playName"),"%"+playSearchCriteria+"%"));
         }
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
 
-    private void setOrder(PageDao pageDao, CriteriaQuery<Play> criteriaQuery, Root<Play> playRoot) {
-        if (pageDao.getDirection().equals(Sort.Direction.ASC)){
-            criteriaQuery.orderBy(criteriaBuilder.asc(playRoot.get(pageDao.getSortBy())));
+    private void setOrder(CriteriaQuery<Play> criteriaQuery, Root<Play> playRoot) {
+        if ("ASC".equals(Sort.Direction.ASC)){
+            criteriaQuery.orderBy(criteriaBuilder.asc(playRoot.get(Sort.DEFAULT_DIRECTION.name())));
         }else
         {
-            criteriaQuery.orderBy(criteriaBuilder.desc(playRoot.get(pageDao.getSortBy())));
+            criteriaQuery.orderBy(criteriaBuilder.desc(playRoot.get(Sort.DEFAULT_DIRECTION.name())));
         }
     }
     private Pageable getPageable(PageDao pageDao) {
-        Sort sort=Sort.by(pageDao.getDirection(),pageDao.getSortBy());
-        return PageRequest.of(pageDao.getPageNumber(), pageDao.getPageSize(),sort);
+//        Sort sort=Sort.by(pageDao.getDirection(),pageDao.getSortBy());
+        return PageRequest.of(pageDao.getPageNumber(), pageDao.getPageSize(), Sort.Direction.ASC, "playName");
     }
     private long getPlayCount(Predicate predicate) {
         CriteriaQuery<Long> countQuery= criteriaBuilder.createQuery(Long.class);

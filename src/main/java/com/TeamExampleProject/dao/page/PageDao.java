@@ -1,14 +1,15 @@
 package com.TeamExampleProject.dao.page;
 
+import com.TeamExampleProject.dao.searchCriteria.PlaySearchCriteria;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.domain.Sort;
 
 @Getter
 @Setter
 public class PageDao {
     private int pageNumber;
     private int pageSize;
-    private Sort.Direction direction;
-    private String sortBy;
-}
+//    private String direction="ASC";
+//    private String sortBy="DESC";
+    private PlaySearchCriteria searchCriteria;
+ }

@@ -17,8 +17,8 @@ public class PageService {
     private PlayCriteriaRepo playCriteriaRepo;
 
 
-    public Page<Play> getPlays(PageDao pageDao, PlaySearchCriteria playSearchCriteria){
-        return playCriteriaRepo.findAllWithFilter(pageDao, playSearchCriteria);
+    public Page<Play> getPlays(PageDao pageDao){
+        return playCriteriaRepo.findAllWithFilter(pageDao);
     }
 
 
